@@ -8,6 +8,11 @@ phases:
       - curl -o out.txt https://codepipeline-ap-south-1-402428956422.s3.ap-south-1.amazonaws.com/outart/out.txt
       - export CONTENT=$(cat out.txt)
       - echo "Content of out.txt: $CONTENT"
+
+  pre_build:
+    commands:
+      - echo Pre-build phase started on date
+      - mvn --version
       - |
         if [ "$CONTENT" == "backend" ]; then
           echo Updating apt-get
@@ -15,14 +20,9 @@ phases:
           echo Installing Maven
           apt-get install -y maven
         else
-          echo "No backend update detected. Exiting..."
+          echo "No backend update detected. Skipping build and exiting..."
           exit 0
         fi
-
-  pre_build:
-    commands:
-      - echo Pre-build phase started on date
-      - mvn --version
 
   build:
     commands:
