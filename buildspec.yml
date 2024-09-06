@@ -14,7 +14,7 @@ phases:
       - "echo Pre-build phase started on date"
       - "mvn --version"
       - |
-        "if [ \"$CONTENT\" == \"backend\" ]; then
+        if [ \"$CONTENT\" == \"backend\" ]; then
           echo Updating apt-get
           apt-get update
           echo Installing Maven
@@ -22,7 +22,7 @@ phases:
         else
           echo \"No backend update detected. Skipping build and exiting...\"
           exit 0
-        fi"
+        fi
 
   build:
     commands:
