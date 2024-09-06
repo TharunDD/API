@@ -8,8 +8,7 @@ phases:
       - curl -o out.txt https://codepipeline-ap-south-1-402428956422.s3.ap-south-1.amazonaws.com/outart/out.txt
       - export CONTENT=$(cat out.txt)
       - echo "Content of out.txt: $CONTENT"
-      - |
-        if [ "$CONTENT" == "backend" ]; then
+      - if [ "$CONTENT" == "backend" ]; then
           echo Updating apt-get
           apt-get update
           echo Installing Maven
