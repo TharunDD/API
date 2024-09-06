@@ -2,14 +2,13 @@ version: 0.0
 os: linux
 files:
   - source: s3://code-s3-pipeline/springBootApp/hellospringbootapp-0.0.1-SNAPSHOT.war
-  destination: /home/ubuntu/deploy
+    destination: /home/ubuntu/deploy
 
 hooks:
   BeforeInstall:
-     - echo before install step
-     #- location: scripts/before_install.sh
-      #timeout: 300
-      #runas: ubuntu
+    - location: scripts/check_file.sh
+      timeout: 300
+      runas: ubuntu
 
   AfterInstall:
     - echo after install step
@@ -34,5 +33,3 @@ hooks:
     #- location: scripts/validate_service.sh
       #timeout: 300
       #runas: ubuntu
-      
-      
