@@ -1,4 +1,5 @@
 version: 0.2
+
 phases:
   install:
     runtime-versions:
@@ -6,29 +7,29 @@ phases:
       java: corretto17
     commands:
       - "echo Checking for the latest repos to build project"
-      - "pip install requests" 
-      - "python check_latest_commit.py"
-      - "export CONTENT=$(cat out.txt)"
+      - "pip install requests
+      - "python check_latest_commit.py
+      - "export CONTENT=$(cat out.txt)
       - "echo Content of out.txt: $CONTENT"
 
   pre_build:
     commands:
-      - "echo Pre-build phase started on date"
+      - echo "Pre-build phase started on date"
       - |
-        if [ "$CONTENT" = "backend" ]; then  # Added space around the "=" operator
+        if [ "$CONTENT" = "backend" ]; then
           echo "Updating apt-get"
           apt-get update
           echo "Installing Maven"
           apt-get install -y maven
         else
-          "echo No backend update detected. Skipping pre-build and exiting..."
+          echo "No backend update detected. Skipping pre-build and exiting..."
           exit 0
         fi
 
   build:
     commands:
       - |
-        if [ "$CONTENT" = "backend" ]; then  # Added space around the "=" operator
+        if [ "$CONTENT" = "backend" ]; then
           echo "Build started on date"
           echo "Building the Maven project..."
           mvn clean install
@@ -40,9 +41,15 @@ phases:
   post_build:
     commands:
       - echo "Post-build phase started on date"
-      - echo "Test comment"
+      - |
+        if [ "$CONTENT" = "backend" ]; then
+          echo "Attempting to upload artifacts..."
+          cp target/*.war artifact_output/ || echo "Artifact copy failed, continuing..."
+        else
+          echo "No artifacts to upload, skipping..."
+        fi
 
 artifacts:
   files:
-    - target/*.war
+    - "artifact_output/*.war.gz"
   discard-paths: yes
