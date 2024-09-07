@@ -15,21 +15,27 @@ phases:
       - "mvn --version"
       - |
         if [ \"$CONTENT\" == \"backend\" ]; then
-          echo Updating apt-get
+          echo "Updating apt-get"
           apt-get update
-          echo Installing Maven
+          echo "Installing Maven"
           apt-get install -y maven
         else
-          echo \"No backend update detected. Skipping build and exiting...\"
+          echo \"No backend update detected. Skipping pre-build and exiting...\"
           exit 0
         fi
 
   build:
     commands:
-      - "echo Build started on date"
-      - "echo Building the Maven project..."
-      - "mvn clean install"
-
+      - |
+        if [ \"$CONTENT\" == \"backend\" ]; then
+          echo "Build started on date"
+          echo "Building the Maven project..."
+          mvn clean install
+        else
+          echo \"No backend update detected. Skipping build and exiting...\"
+          exit 0
+        fi
+        
   post_build:
     commands:
       - "echo Post-build phase started on date"
