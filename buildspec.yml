@@ -4,7 +4,7 @@ phases:
     runtime-versions:
       java: corretto17
     commands:
-      - "echo \"Downloading out.txt from S3...\""
+      - "echo \"Downloading out.txt from S3...will be the final\""
       - "curl -o out.txt https://codepipeline-ap-south-1-402428956422.s3.ap-south-1.amazonaws.com/outart/out.txt"
       - "export CONTENT=$(cat out.txt)"
       - "echo \"Content of out.txt: $CONTENT\""
