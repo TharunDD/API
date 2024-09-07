@@ -11,6 +11,8 @@ phases:
       - "python check_latest_commit.py
       - "export CONTENT=$(cat out.txt)
       - "echo Content of out.txt: $CONTENT"
+      - "mkdir -p artifact_output"
+      - "touch artifact_output/.keep"  
 
   pre_build:
     commands:
@@ -51,5 +53,5 @@ phases:
 
 artifacts:
   files:
-    - "artifact_output/*.war.gz"
+    - "artifact_output/**/*"
   discard-paths: yes
