@@ -5,7 +5,7 @@ phases:
       python: 3.9
       java: corretto17
     commands:
-      - "echo Checking for the latest repos"
+      - "echo Checking for the latest repos to build project"
       - "pip install requests" 
       - "python check_latest_commit.py"
       - "export CONTENT=$(cat out.txt)"
