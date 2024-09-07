@@ -7,12 +7,12 @@ phases:
       java: corretto17
     commands:
       - "echo Checking for the latest repos to build project"
-      - "pip install requests
-      - "python check_latest_commit.py
-      - "export CONTENT=$(cat out.txt)
+      - "pip install requests"
+      - "python check_latest_commit.py"
+      - "export CONTENT=$(cat out.txt)"
       - "echo Content of out.txt: $CONTENT"
       - "mkdir -p artifact_output"
-      - "touch artifact_output/.keep"  
+      - "touch artifact_output/.keep"
 
   pre_build:
     commands:
