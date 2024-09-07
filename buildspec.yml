@@ -14,25 +14,25 @@ phases:
       - "echo Pre-build phase started on date"
       - "mvn --version"
       - |
-        if [ "$CONTENT" =" backend" ]; then
+        if [ "$CONTENT" = "backend" ]; then  # Fix: Added space around the "=" operator
           echo "Updating apt-get"
           apt-get update
           echo "Installing Maven"
           apt-get install -y maven
         else
-          echo \"No backend update detected. Skipping pre-build and exiting...\"
+          echo "No backend update detected. Skipping pre-build and exiting..."
           exit 0
         fi
 
   build:
     commands:
       - |
-        if [ \"$CONTENT\" == \" backend\" ]; then
+        if [ "$CONTENT" = "backend" ]; then  # Fix: Added space around the "=" operator
           echo "Build started on date"
           echo "Building the Maven project..."
           mvn clean install
         else
-          echo \"No backend update detected. Skipping build and exiting...\"
+          echo "No backend update detected. Skipping build and exiting..."
           exit 0
         fi
         
