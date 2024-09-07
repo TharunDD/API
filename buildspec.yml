@@ -5,16 +5,15 @@ phases:
       python: 3.9
       java: corretto17
     commands:
-      - echo "Checking for the latest repos"
-      - pip install requests 
-      - python check_latest_commit.py
-      - export CONTENT=$(cat out.txt)
-      - echo "Content of out.txt: $CONTENT"
+      - "echo Checking for the latest repos"
+      - "pip install requests" 
+      - "python check_latest_commit.py"
+      - "export CONTENT=$(cat out.txt)"
+      - "echo Content of out.txt: $CONTENT"
 
   pre_build:
     commands:
-      - echo "Pre-build phase started on date"
-      - mvn --version
+      - "echo Pre-build phase started on date"
       - |
         if [ "$CONTENT" = "backend" ]; then  # Added space around the "=" operator
           echo "Updating apt-get"
@@ -22,7 +21,7 @@ phases:
           echo "Installing Maven"
           apt-get install -y maven
         else
-          echo "No backend update detected. Skipping pre-build and exiting..."
+          "echo No backend update detected. Skipping pre-build and exiting..."
           exit 0
         fi
 
